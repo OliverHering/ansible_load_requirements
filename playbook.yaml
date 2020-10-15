@@ -1,0 +1,11 @@
+- hosts:
+    - dev_machines
+  serial: 1
+  gather_facts: no
+  pre_tasks:
+    - import_tasks: requirements/load_requirements.yml  
+  tasks:
+    - include_role:
+        name: test.ansible_collections.role1
+  post_tasks:
+    - import_tasks: requirements/remove_requirements.yml

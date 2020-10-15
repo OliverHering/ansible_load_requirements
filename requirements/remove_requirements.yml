@@ -1,0 +1,12 @@
+- name: remove rendered requirements.yaml
+  delegate_to: localhost
+  changed_when: no
+  file:
+    state: absent
+    path: "{{ playbook_dir }}/requirements/requirements.generated.yaml"
+- name: remove requirements
+  delegate_to: localhost
+  changed_when: no
+  file:
+    state: absent
+    path: "{{ playbook_dir }}/collections"

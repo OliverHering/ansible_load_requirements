@@ -1,0 +1,13 @@
+- name: render requirements template
+  delegate_to: localhost
+  changed_when: no
+  template:
+    src: "{{ playbook_dir }}/requirements/requirements.yaml.j2"
+    dest: "{{ playbook_dir }}/requirements/requirements.generated.yaml"
+    mode: '0640'
+- name: load required collections
+  delegate_to: localhost
+  changed_when: no
+  environment:
+    GIT_SSL_NO_VERIFY: 1
+  command: "ansible-galaxy collection install --force --ignore-certs -p {{ playbook_dir }}/collections/ansible_collections -r \"{{ playbook_dir }}/requirements/requirements.generated.yaml\""
